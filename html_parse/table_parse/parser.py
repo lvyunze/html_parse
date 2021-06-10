@@ -61,7 +61,7 @@ class HtmlTableParser(HTMLParser, metaclass=ABCMeta):
         self.df_list = self.get_df_list()
         for df in self.df_list:
             df['name'] = df['name'].str.lower() if lower else df['name']
-            df['name'] = df['name'].str.replace(" ", '')
+            df['name'] = df['name'].str.replace(" ", '') if blank else df["name"]
             df_col_len = df.shape[1]
             df.columns = ["name", *[i for i in range(1, df_col_len)]]
             result = df[df.name.str.contains(item)].values[0].tolist()
